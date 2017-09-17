@@ -1,0 +1,15 @@
+<div class="prod-box">
+	<a href="http://google.com/">
+		<amp-img src="{{ product.images[0] }}" width="854" height="480" alt="{{ product.name }}" layout="responsive">
+            <div placeholder class="placeholder-color"></div>
+		</amp-img>
+	</a>
+	<div class="prod-attr">
+		<h3><span>{{ product.title }}</span><i title="anyad">{{ product.get_stock_status() }}</i></h3>
+		<p>{{ product.description }}</p>
+		<p>
+			<a class="btn btn-submit" href="{{ url_for('amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">Buy Now</a>
+			<a class="btn btn-positive btn-right" href="{{ url_for('amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">View&nbsp;Details</a>
+		</p>
+	</div>
+</div>
