@@ -1,5 +1,5 @@
 import uuid 
-from packjoy.app import db, pp
+from app import db, pp
 from flask import url_for
 
 # This needs to be moved somewhere else

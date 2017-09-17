@@ -1,7 +1,7 @@
-from packjoy.app import app, db, pp
-from packjoy.models import Email
-from packjoy.forms import EmailForm
-from packjoy.moltin_helper import get_prods_by_slug, get_brand_by_slug
+from app import app, db, pp
+from models import Email
+from forms import EmailForm
+from moltin_helper import get_prods_by_slug, get_brand_by_slug
 from flask import jsonify, request, render_template, redirect, url_for
 from flask import abort
 

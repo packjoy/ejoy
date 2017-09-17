@@ -1,15 +1,16 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_admin import Admin
+# from flask_admin import Admin
 from moltin.moltin import Moltin
 from flask_migrate import Migrate
-from packjoy import app
+# from packjoy import app
+from config import Development, Production
 import pprint
 
 pp = pprint.PrettyPrinter(indent=2)
 
 app = Flask(__name__)
-app.config.from_object('packjoy.config.Development')
+app.config.from_object(Development)
 
 # Custom templating helper
 # filters, renderers
@@ -27,8 +28,8 @@ access_token = m.authenticate()
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-admin = Admin(app, name='packjoy', template_mode='bootstrap3')
-import packjoy.admin
+# admin = Admin(app, name='packjoy', template_mode='bootstrap3')
+# import admin
 
 
 @app.after_request
@@ -42,7 +43,7 @@ def apply_cors_to_amp_cache(response):
     return response
 
 
-import packjoy.routes
+import routes
 
 if __name__ == "__main__":
     app.run(debug=True) 
