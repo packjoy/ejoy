@@ -9,7 +9,7 @@ class BaseConfig(object):
 
 
 class Development(BaseConfig):
-	pass
+	DEBUG = True
 
 class Production(BaseConfig):
 	pass

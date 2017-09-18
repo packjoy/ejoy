@@ -1,0 +1,50 @@
+{% extends "base-amp.html" %}
+
+{% block add_scripts %}
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+{% endblock add_scripts %}
+
+<style type="text/css">
+{% block custom_css %}
+	{{ get_resource_as_string('static/css/dist/index.css') }}
+{% endblock custom_css %}
+</style>
+
+{% block content %}
+<div class="w100p">
+	<div class="carousel">
+		<amp-carousel height="260" layout="fixed-height" type="slides">
+			<div placeholder class="placeholder-color"></div>
+			<div class="slide1">
+				<div class="jumbotron">
+					<h5>Get 10% Off</h5>
+					<p>Join Our newsletter list and get 10% discount on your next order. Keep in Touch!</p>
+					{% include 'partials/newsletter_join.html' %}
+				</div>
+			</div>
+			<div class="slide2">
+				<div class="jumbotron">
+					<h5>Out of box products!</h5>
+					<p>
+						Our products provide <i>Out of Box</i> solutions for everyday life. Check it out Now.
+					</p>
+				</div>
+			</div>
+			<div class="slide3">
+				<div class="jumbotron">
+					<h5>Free Shipping on orders > 60RON.</h5>
+					<p>Order for 60RON or more and get free shipping.</p>
+				</div>
+			</div>
+		</amp-carousel>
+	</div>
+	<!-- isn't working this shit -->
+	<h1 class="headline">Latest Products</h1>
+	<hr />
+	<div class="prod-renderer-wraper">
+		{% for product in products %}
+			{% include 'partials/prod_renderer_4_in_row.html' %}
+		{% endfor %}
+	</div>
+</div>
+{% endblock content %}

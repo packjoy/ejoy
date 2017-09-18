@@ -4,13 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 from moltin.moltin import Moltin
 from flask_migrate import Migrate
 # from packjoy import app
-from config import Development, Production
 import pprint
 
 pp = pprint.PrettyPrinter(indent=2)
 
 app = Flask(__name__)
-app.config.from_object(Development)
+app.config.from_pyfile('config_dev.py')
 
 # Custom templating helper
 # filters, renderers
@@ -46,4 +45,4 @@ def apply_cors_to_amp_cache(response):
 import routes
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run() 
