@@ -1,5 +1,5 @@
-from app import m, pp
-from models import Product, Brand
+from packjoy import m, pp
+from packjoy.common.models import Product, Brand
 from moltin.exception import RequestError
 
 
