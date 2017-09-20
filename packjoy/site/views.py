@@ -4,32 +4,37 @@ from packjoy import db, pp
 from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
 
 
-site = Blueprint('site', __name__)
+site = Blueprint(
+			'site', __name__,
+			template_folder='templates',
+			static_folder='static',
+			static_url_path='/static'
+)
 
 
 @site.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('site/index.html')
 
 @site.route('/amp/')
 def amp_index():
     products = get_prods_by_slug(slug=None)
-    return render_template('index-amp.html', products=products)
+    return render_template('site/index-amp.html', products=products)
 
 @site.route('/amp/products')
 def products():
     products = get_prods_by_slug(slug=None)
-    return render_template('products-page-amp.html', products=products)
+    return render_template('site/products-page-amp.html', products=products)
 
 @site.route('/amp/contact-us')
 def contact_us():
     products = get_prods_by_slug(slug=None)
-    return render_template('contact-us-page-amp.html')
+    return render_template('site/contact-us-page-amp.html')
 
 @site.route('/amp/checkout')
 def checkout():
     products = get_prods_by_slug(slug=None)
-    return render_template('checkout-page-amp.html')
+    return render_template('site/checkout-page-amp.html')
 
 @site.route('/amp/<brand>')
 def amp_brand_page(brand):
@@ -38,7 +43,7 @@ def amp_brand_page(brand):
         # There is No Such a Brand
         # Abort 404
         return redirect(url_for('amp_index'))
-    return render_template('brand-page-amp.html', brand=brand)
+    return render_template('site/brand-page-amp.html', brand=brand)
 
 @site.route('/amp/<brand>/<product>')
 def amp_product_page(brand, product):
@@ -51,4 +56,4 @@ def amp_product_page(brand, product):
     brand_obj = get_brand_by_slug(brand)
     if brand_slug != brand:
         return redirect(url_for('amp_product_page', brand=prod.brand['slug'], product=prod.slug))
-    return render_template('product-page-amp.html', product=prod, brand=brand_obj)
+    return render_template('site/product-page-amp.html', product=prod, brand=brand_obj)

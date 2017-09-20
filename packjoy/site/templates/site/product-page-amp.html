@@ -1,4 +1,4 @@
-{% extends "base-amp.html" %}
+{% extends "site/base-amp.html" %}
 
 {% block add_scripts %}
 <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
@@ -43,7 +43,7 @@
 
 <style type="text/css">
 {% block custom_css %}
-	{{ get_resource_as_string('static/css/dist/productPage.css') }}
+	{{ get_resource_as_string('site/static/css/dist/productPage.css') }}
 {% endblock custom_css %}
 </style>
 
@@ -52,13 +52,13 @@
 	<h1>{{ product.title }}</h1>
 	<div class="grid-social-link">
 		<p class="link-bar">
-			<a href="{{ url_for('amp_index') }}">
+			<a href="{{ url_for('site.amp_index') }}">
 				Home
 			</a>/
-			<a href="{{ url_for('amp_brand_page', brand=product.brand['slug']) }}">
+			<a href="{{ url_for('site.amp_brand_page', brand=product.brand['slug']) }}">
 				{{ product.brand['title'] }}
 			</a>/
-			<a href="{{ url_for('amp_product_page', brand=product.brand['slug'], product=product.slug) }}">
+			<a href="{{ url_for('site.amp_product_page', brand=product.brand['slug'], product=product.slug) }}">
 				{{ product.title }}
 			</a>
 		</p>
@@ -173,13 +173,13 @@
 	<div class="brand-products">
 		{% for product in brand.products[:4] %}
 			<div class="product-box">
-				<a href="{{ url_for('amp_product_page', brand=product.brand['slug'], product=product.slug) }}">
+				<a href="{{ url_for('site.amp_product_page', brand=product.brand['slug'], product=product.slug) }}">
 					<amp-img src="{{ product.images[0] }}" width="854" height="480" alt="{{ product.name }}" layout="responsive">
 						<div placeholder class="placeholder-color"></div>
 					</amp-img>
 				</a>
 				<p class="product-description">
-					<a href="{{ url_for('amp_product_page', brand=product.brand['slug'], product=product.slug) }}">
+					<a href="{{ url_for('site.amp_product_page', brand=product.brand['slug'], product=product.slug) }}">
 						{{ product.description }}
 					</a>
 				</p>

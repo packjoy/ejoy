@@ -1,4 +1,4 @@
-{% extends "base-amp.html" %}
+{% extends "site/base-amp.html" %}
 
 {% block add_scripts %}
 <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
@@ -6,7 +6,7 @@
 
 <style type="text/css">
 {% block custom_css %}
-	{{ get_resource_as_string('static/css/dist/index.css') }}
+	{{ get_resource_as_string('site/static/css/dist/index.css') }}
 {% endblock custom_css %}
 </style>
 
@@ -19,7 +19,7 @@
 				<div class="jumbotron">
 					<h5>Get 10% Off</h5>
 					<p>Join Our newsletter list and get 10% discount on your next order. Keep in Touch!</p>
-					{% include 'partials/newsletter_join.html' %}
+					{% include 'site/partials/newsletter_join.html' %}
 				</div>
 			</div>
 			<div class="slide2">
@@ -43,7 +43,7 @@
 	<hr />
 	<div class="prod-renderer-wraper">
 		{% for product in products %}
-			{% include 'partials/prod_renderer_4_in_row.html' %}
+			{% include 'site/partials/prod_renderer_4_in_row.html' %}
 		{% endfor %}
 	</div>
 </div>

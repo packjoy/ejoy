@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 import pprint
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 app.config.from_pyfile('../config_dev.py')
 pp = pprint.PrettyPrinter(indent=2)
 
@@ -41,5 +41,5 @@ from packjoy.site.views import site
 from packjoy.common import common
 
 app.register_blueprint(api, url_prefix='/api')
-app.register_blueprint(site, template_folder='templates')
+app.register_blueprint(site)
 app.register_blueprint(common)

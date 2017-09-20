@@ -50,7 +50,7 @@ class Brand(object):
 		self.title = self.products[0].brand['title']
 		self.slug = self.products[0].brand['slug']
 		self.description = self.products[0].brand['description']
-		self.banner = url_for('static', filename='img/{}.jpg'.format(self.title))
+		self.banner = url_for('site.static', filename='img/{}.jpg'.format(self.title))
 
 	def __repr__(self):
 		return '<{} Brand>'.format(self.title)
