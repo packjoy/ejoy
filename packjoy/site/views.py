@@ -11,41 +11,36 @@ site = Blueprint(
 			static_url_path='/static'
 )
 
-
 @site.route('/')
-def index():
-    return render_template('site/index.html')
-
-@site.route('/amp/')
 def amp_index():
     products = get_prods_by_slug(slug=None)
     return render_template('site/index-amp.html', products=products)
 
-@site.route('/amp/products')
+@site.route('/products')
 def products():
     products = get_prods_by_slug(slug=None)
     return render_template('site/products-page-amp.html', products=products)
 
-@site.route('/amp/contact-us')
+@site.route('/contact-us')
 def contact_us():
     products = get_prods_by_slug(slug=None)
     return render_template('site/contact-us-page-amp.html')
 
-@site.route('/amp/checkout')
+@site.route('/checkout')
 def checkout():
     products = get_prods_by_slug(slug=None)
     return render_template('site/checkout-page-amp.html')
 
-@site.route('/amp/<brand>')
+@site.route('/<brand>')
 def amp_brand_page(brand):
     brand = get_brand_by_slug(brand)
     if brand is None:
         # There is No Such a Brand
         # Abort 404
-        return redirect(url_for('amp_index'))
+        return redirect(url_for('site.amp_index'))
     return render_template('site/brand-page-amp.html', brand=brand)
 
-@site.route('/amp/<brand>/<product>')
+@site.route('/<brand>/<product>')
 def amp_product_page(brand, product):
     prod = get_prods_by_slug(product)
     if prod is None:

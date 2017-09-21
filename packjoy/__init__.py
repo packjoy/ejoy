@@ -3,12 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask_admin import Admin
 from moltin.moltin import Moltin
 from flask_migrate import Migrate
+from packjoy.common.logger import file_handler
 import pprint
 
 
 app = Flask(__name__, static_folder=None)
 app.config.from_pyfile('../config_dev.py')
 pp = pprint.PrettyPrinter(indent=2)
+if not app.debug:
+	app.logger.addHandler(file_handler)
+
 
 
 # Custom templating helper
@@ -41,5 +45,5 @@ from packjoy.site.views import site
 from packjoy.common import common
 
 app.register_blueprint(api, url_prefix='/api')
-app.register_blueprint(site)
+app.register_blueprint(site, url_prefix='/amp')
 app.register_blueprint(common)

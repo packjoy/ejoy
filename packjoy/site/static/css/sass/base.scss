@@ -73,8 +73,11 @@ nav {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
         width: 100%;
-        margin-top: 20px;
-        border-right: 1px solid $third-color;
+        padding-top: 20px;
+        box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+        position: sticky;
+        top: 0px;
+        height: 100vh;
         .navbar-brand {
             align-self: start;
             grid-row: 1;
@@ -186,6 +189,10 @@ main {
 }
 footer {
     margin-top: 20px;
+    // Fix for the side menu on desktop
+    background-color: white;
+    z-index: 2;
+    // End fix
     @include for-desktop-up {
         grid-column: span 2;
     }

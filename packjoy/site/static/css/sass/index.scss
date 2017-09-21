@@ -21,14 +21,14 @@
 		}
 	}
 	.slide1{
-		@include add-fixed-bg('../static/img/join_email_list_bg.jpg');
+		@include add-fixed-bg('static/img/join_email_list_bg.jpg');
 	}
 	.slide2{
-		@include add-fixed-bg('../static/img/out_of_box_prods.jpg');
+		@include add-fixed-bg('static/img/out_of_box_prods.jpg');
 	}
 	.slide3{
 		background-color: $primary-color;
-		@include add-fixed-bg('../static/img/free_shipping_bg.png');
+		@include add-fixed-bg('static/img/free_shipping_bg.png');
 	}
 }
 .headline {
