@@ -1,5 +1,5 @@
 <div class="prod-box">
-	<a href="http://google.com/">
+	<a href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">
 		<amp-img src="{{ product.images[0] }}" width="854" height="480" alt="{{ product.name }}" layout="responsive">
             <div placeholder class="placeholder-color"></div>
 		</amp-img>
