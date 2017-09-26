@@ -19,6 +19,9 @@
 			color: #000001;
 			padding: 1.5vw;
 		}
+		.email-input{
+			padding: 0 1.5vw;
+		}
 	}
 	.slide1{
 		@include add-fixed-bg('static/img/join_email_list_bg.jpg');

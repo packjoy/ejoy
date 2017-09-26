@@ -185,6 +185,10 @@ main {
         grid-column: 2;
         margin: 30px; 
         padding: 30px;
+        section {
+            margin: 0px auto;
+            max-width: 900px;
+        }
     }
 }
 footer {

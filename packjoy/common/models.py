@@ -8,7 +8,7 @@ class Email(db.Model):
     email = db.Column(db.String(120), unique=True)
     token = db.Column(db.String(20), unique=True)
 
-    def __init__(self, email):
+    def __init__(self, email=''):
         self.email = email
         self.token = uuid.uuid4().hex[:8].upper()
 
