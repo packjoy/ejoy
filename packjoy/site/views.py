@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request, render_template
 from flask import abort, redirect, url_for
 from packjoy import db, pp
 from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
-
+from flask_security import current_user
 
 site = Blueprint(
 			'site', __name__,
@@ -14,6 +14,9 @@ site = Blueprint(
 @site.route('/')
 def amp_index():
     products = get_prods_by_slug(slug=None)
+    # print('Email: {}'.format(current_user.email))
+    # print('Is admin: {}'.format(current_user.has_role('Admin')))
+    # print('Roles: {}'.format(current_user.roles))
     return render_template('site/index-amp.html', products=products)
 
 @site.route('/products')

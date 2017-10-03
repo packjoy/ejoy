@@ -6,3 +6,18 @@ SECRET_KEY = 'secret'
 MOLTIN_CLIENT_ID = '6lI3pFVOxwB0CNRS5YJboKY7GXPHSgkMxD8QXmb7j3'
 MOLTIN_CLIENT_SECRET = 'PuVZIDGLP9ws0Nph07dRwVR99l2mJf5iqiX8A1fA0b'
 DEBUG = True
+SECURITY_REGISTERABLE = True
+SECURITY_PASSWORD_HASH = "pbkdf2_sha512"
+SECURITY_PASSWORD_SALT = "ATGUOHAELKiubahiughaerGOJAEGj"
+SECURITY_SEND_REGISTER_EMAIL = False
+
+# # Flask-Security URLs, overridden because they don't put a / at the end
+# SECURITY_LOGIN_URL = "/login/"
+# SECURITY_LOGOUT_URL = "/logout/"
+# SECURITY_REGISTER_URL = "/register/"
+
+# SECURITY_POST_LOGIN_VIEW = "/admin/"
+# SECURITY_POST_LOGOUT_VIEW = "/admin/"
+# SECURITY_POST_REGISTER_VIEW = "/admin/"
+
+# # Flask-Security features
