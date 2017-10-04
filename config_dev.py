@@ -1,15 +1,9 @@
-TESTING = False
-WTF_CSRF_ENABLED = False
+from config import *
+from config_secret_dev import *
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
-SQLALCHEMY_TRACK_MODIFICATIONS = True
 SECRET_KEY = 'secret'
-MOLTIN_CLIENT_ID = '6lI3pFVOxwB0CNRS5YJboKY7GXPHSgkMxD8QXmb7j3'
-MOLTIN_CLIENT_SECRET = 'PuVZIDGLP9ws0Nph07dRwVR99l2mJf5iqiX8A1fA0b'
 DEBUG = True
-SECURITY_REGISTERABLE = True
-SECURITY_PASSWORD_HASH = "pbkdf2_sha512"
-SECURITY_PASSWORD_SALT = "ATGUOHAELKiubahiughaerGOJAEGj"
-SECURITY_SEND_REGISTER_EMAIL = False
 
 # # Flask-Security URLs, overridden because they don't put a / at the end
 # SECURITY_LOGIN_URL = "/login/"
