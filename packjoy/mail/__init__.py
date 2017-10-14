@@ -12,7 +12,7 @@ def test_email():
             sender="ejoy.main@gmail.com",
             recipients=["szeka1994@gmail.com"])
         msg.body = "testing"
-        msg.html = "<b>testing</b>"
+        msg.html = "<b>Hello there</b>"
         mail.send(msg)
         return 'Thank you'
     except Exception as e:
