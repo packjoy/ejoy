@@ -8,7 +8,7 @@ import pprint
 
 
 app = Flask(__name__, static_folder=None)
-app.config.from_pyfile('../config_prod.py')
+app.config.from_pyfile('../config_dev.py')
 pp = pprint.PrettyPrinter(indent=2)
 if not app.debug:
 	app.logger.addHandler(file_handler)
@@ -42,6 +42,7 @@ def apply_cors_to_amp_cache(response):
 
 from packjoy.api.routes import api
 from packjoy.site.views import site
+from packjoy.mail import mail_service
 from packjoy.common import common
 from packjoy.common.models import User, Role
 
@@ -56,3 +57,4 @@ import packjoy.admin.admin
 app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(site)
 app.register_blueprint(common)
+app.register_blueprint(mail_service, url_prefix='/mail')
