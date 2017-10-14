@@ -8,7 +8,7 @@ import pprint
 
 
 app = Flask(__name__, static_folder=None)
-app.config.from_pyfile('../config_dev.py')
+app.config.from_pyfile('../config_prod.py')
 pp = pprint.PrettyPrinter(indent=2)
 if not app.debug:
 	app.logger.addHandler(file_handler)
