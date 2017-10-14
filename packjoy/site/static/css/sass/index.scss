@@ -40,24 +40,18 @@
 .prod-renderer-wraper {
 	margin-top: 4em;
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto;
-	grid-gap: 35px;
-	@include for-tablet-up {
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: auto;
-	}
+	grid-gap: 10px;
 	.prod-box {
-        grid-column: 1;
+        grid-column: auto;
         justify-self: center;
-        width: 80%;
-        border: 1px solid $third-color;
-        @include for-tablet-up {
-        	width: 100%;
-        	&:nth-child(even) {
-        		grid-column: 2;
-        	}
-        }
+        width: 90%;
+        max-width: 350px;
+        text-align: center;
+	    @include for-tablet-up {
+	        border: 1px solid $third-color;
+	    }
         .prod-attr {
         	margin-top: 10px;
         	padding: 2vw;
@@ -65,10 +59,11 @@
         		position: relative;
         		span {
         			display: inline-block;
-        			width: 60%;
+        			width: 100%;
+        			font-size: 14px;
         		}
 	        	i {
-	        		display: inline-block;
+	        		display: none;
 	        		text-align: right;
 	        		width: 40%;
 	        		padding-left: 15px;
@@ -83,14 +78,27 @@
 	        		span {
 	        			grid-row: 1;
 	        			text-align: left;
-	        			width: 100%;
+	        			font-size: 16px;
 	        		}
 	        		i {
 	        			grid-row: 2;
+		        		display: inline-block;
 	        			text-align: right;
 	        			width: 100%;
 	        			position: inherit;
 	        		}
+	        		p {
+	        			font-size: 14px;
+	        		}
+	        	}
+        	}
+        	p {
+        		font-size: 12px;
+        	}
+        	.cta-wrapper {
+        		display: none;
+	        	@include for-tablet-up {
+	        		display: block;
 	        	}
         	}
         	.btn-submit {
