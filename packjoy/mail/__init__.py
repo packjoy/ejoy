@@ -3,7 +3,7 @@ from flask_mail import Mail, Message
 from flask import Blueprint
 
 mail = Mail(app)
-mail_service = Blueprint('mail_service', __name__)
+mail_service = Blueprint('mail_service', __name__, template_folder='templates')
 
 @mail_service.route('/test')
 def test_email():

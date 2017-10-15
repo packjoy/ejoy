@@ -3,6 +3,7 @@ from packjoy import db
 from packjoy.common.models import Email
 from packjoy.common.forms import EmailForm
 from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
+from packjoy.mail.mail_helpers import send_token_to_user
 
 
 api = Blueprint('api', __name__)
@@ -14,9 +15,11 @@ def adding_email_address():
     form.from_json(request.get_json())
     if form.validate():
         if Email.query.filter_by(email=form.email.data).first() is None:
-            newsletter_subs = Email(email=form.data['email'])
-            db.session.add(newsletter_subs)
+            subscription = Email(email=form.data['email'])
+            db.session.add(subscription)
             db.session.commit()
+            send_token_to_user(email=subscription.email,
+                                token=subscription.token)
             return jsonify({ 'message' : '10% discount in your inbox. Use this email address at checkout!' }), 200
         return jsonify({ 'message': 'This email has already joined.' }), 400
     return jsonify({ 'message' : form.errors['email'][0] }), 400
