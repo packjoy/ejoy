@@ -23,24 +23,12 @@ def get_prods_by_slug(slug):
 	if slug is None:
 		try:
 			prod_list = product.list()
+			data = [Product(prod) for prod in prod_list]
 		except TypeError as e:
 			print(e)
 			print(product.list())
 		except RequestError as e:
-			return None
-
-		# Should ADD TO MODEL ONE BY ONE
-		# USE dict comprehension maybe
-		try:
-			data = [Product(prod_list[i]) for i in range(0,4)]
-		except:
-			print('############# ERROR #############')
-			print('############# ERROR #############')
-			print('############# ERROR #############')
-			pp.pprint(data)
-			print('############# ERROR #############')
-			print('############# ERROR #############')
-			print('############# ERROR #############')
+			print('Request error: {}'.format(str(e)))
 			return None
 		return data
 	try:
