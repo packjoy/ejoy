@@ -86,7 +86,7 @@ class Brand(object):
         self.title = self.products[0].brand['title']
         self.slug = self.products[0].brand['slug']
         self.description = self.products[0].brand['description']
-        self.banner = url_for('site.static', filename='img/{}_banner.jpg'.format(self.title.lower()))
+        self.banner = 'https://packjoy.herokuapp.com/static/img/packjoy_banner.png'url_for('site.static', filename='img/{}_banner.png  '.format(self.title.lower()))
 
     def __repr__(self):
         return '<{} Brand>'.format(self.title)
