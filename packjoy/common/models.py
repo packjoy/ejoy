@@ -54,8 +54,10 @@ class Token(db.Model):
     description = db.Column(db.String(546))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
-    def __init__(self, email=''):
-        self.token = uuid.uuid4().hex[:10].upper()
+    def __init__(self, description='', user_id=''):
+        self.token_code = uuid.uuid4().hex[:10].upper()
+        self.description = description
+        self.user_id = user_id
 
     def __repr__(self):
         return '<Subscriber %r>' % self.email
