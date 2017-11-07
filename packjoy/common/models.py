@@ -3,26 +3,27 @@ from packjoy import db, pp
 from flask import url_for
 from flask_security import UserMixin, RoleMixin
 
-
-# This needs to be moved somewhere else
-class Email(db.Model):
+# User Model, with User Attributes
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True)
-    token = db.Column(db.String(20), unique=True)
-
-    def __init__(self, email=''):
-        self.email = email
-        self.token = uuid.uuid4().hex[:8].upper()
+    password = db.Column(db.String(255))
+    active = db.Column(db.Boolean())
+    confirmed_at = db.Column(db.DateTime())
+    roles = db.relationship('Role', secondary=roles_users,
+                            backref=db.backref('users', lazy='dynamic'))
+    email = db.relationship('Email', backref='user', lazy='joined', nullable=False)
+    token = db.relationship('Token', backref='user',lazy='joined', nullable=True)
 
     def __repr__(self):
-        return '<Subscriber %r>' % self.email
+        return '<User %s - %s>' % (self.email, self.roles)
 
-# Define models
-roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
+# Roles a user can have
+# Needs to be used beacause of
+# the flask security
 class Role(db.Model, RoleMixin):
+    __tablename__ = 'roles'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
@@ -37,17 +38,34 @@ class Role(db.Model, RoleMixin):
     def __repr__(self):
         return '<Role %s>' % self.name 
 
-class User(db.Model, UserMixin):
+
+
+# This needs to be moved somewhere else
+class Email(db.Model):
+    __tablename__ = 'emails'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(255))
-    active = db.Column(db.Boolean())
-    confirmed_at = db.Column(db.DateTime())
-    roles = db.relationship('Role', secondary=roles_users,
-                            backref=db.backref('users', lazy='dynamic'))
+    email = db.Column(db.String(120), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+
+class Token(db.Model):
+    __tablename__ = 'tokens'
+    id = db.Column(db.Integer, primary_key=True)
+    token_code = db.Column(db.String(20), unique=True)
+    description = db.Column(db.String(546))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+
+    def __init__(self, email=''):
+        self.token = uuid.uuid4().hex[:10].upper()
 
     def __repr__(self):
-        return '<User %s - %s>' % (self.email, self.roles)
+        return '<Subscriber %r>' % self.email
+
+# Define models
+roles_users = db.Table('roles_users',
+        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
+
 
 class Product(object):
     def __init__(self, data):
