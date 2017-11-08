@@ -14,10 +14,12 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
+    # This is the register/login email
+    email = db.Column(db.String(255), unique=True)
+    emails = db.relationship('Email', backref='user', lazy='joined')
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
-    email = db.relationship('Email', backref='user', lazy='joined')
-    token = db.relationship('Token', backref='user',lazy='joined')
+    tokens = db.relationship('Token', backref='user',lazy='joined')
 
     def __repr__(self):
         return '<User %s - %s>' % (self.email, self.roles)
