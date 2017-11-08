@@ -3,17 +3,21 @@ from packjoy import db, pp
 from flask import url_for
 from flask_security import UserMixin, RoleMixin
 
+
+roles_users = db.Table('roles_users',
+        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
 # User Model, with User Attributes
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
-    email = db.relationship('Email', backref='user', lazy='joined', nullable=False)
-    token = db.relationship('Token', backref='user',lazy='joined', nullable=True)
+    email = db.relationship('Email', backref='user', lazy='joined')
+    token = db.relationship('Token', backref='user',lazy='joined')
 
     def __repr__(self):
         return '<User %s - %s>' % (self.email, self.roles)
@@ -23,7 +27,6 @@ class User(db.Model, UserMixin):
 # Needs to be used beacause of
 # the flask security
 class Role(db.Model, RoleMixin):
-    __tablename__ = 'roles'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
@@ -42,15 +45,13 @@ class Role(db.Model, RoleMixin):
 
 # This needs to be moved somewhere else
 class Email(db.Model):
-    __tablename__ = 'emails'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
 class Token(db.Model):
-    __tablename__ = 'tokens'
     id = db.Column(db.Integer, primary_key=True)
-    token_code = db.Column(db.String(20), unique=True)
+    token_code = db.Column(db.String(20), unique=True, nullable=False)
     description = db.Column(db.String(546))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
@@ -61,12 +62,6 @@ class Token(db.Model):
 
     def __repr__(self):
         return '<Subscriber %r>' % self.email
-
-# Define models
-roles_users = db.Table('roles_users',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
-
 
 
 class Product(object):
