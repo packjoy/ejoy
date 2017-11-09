@@ -39,10 +39,7 @@ class Scraper(object):
         info = dict()
         info["name"] = soup.find("div", { "class" : "title-area"}).find('h1').text
         info["city"] = soup.find("div", { "class" : "select-header" }).find('span').text
-        info["url"] = soup.find("ul", { "class" : "info-lista" })
-                .find_all("li")[-1]
-                .find('a', href=True)['href']
-
+        info["url"] = soup.find("ul", { "class" : "info-lista" }).find_all("li")[-1].find('a', href=True)['href']
         return info
 
 

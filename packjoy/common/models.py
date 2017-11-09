@@ -11,11 +11,12 @@ roles_users = db.Table('roles_users',
 # User Model, with User Attributes
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    password = db.Column(db.String(255))
+    password = db.Column(db.String(255), nullable=True)
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
     # This is the register/login email
     email = db.Column(db.String(255), unique=True)
+    city = db.Column(db.String(355), unique=False, nullable=True)
     emails = db.relationship('Email', backref='user', lazy='joined')
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
