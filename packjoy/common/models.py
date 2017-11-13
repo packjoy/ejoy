@@ -16,7 +16,8 @@ class User(db.Model, UserMixin):
     confirmed_at = db.Column(db.DateTime())
     # This is the register/login email
     email = db.Column(db.String(255), unique=True)
-    city = db.Column(db.String(355), unique=False, nullable=True)
+    city = db.Column(db.String(300), nullable=True)
+    name = db.Column(db.String(124), unique=False, nullable=True)
     emails = db.relationship('Email', backref='user', lazy='joined')
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
@@ -51,6 +52,14 @@ class Email(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    active = db.Column(db.Boolean(), default=True)
+
+    def __str__(self):
+        return self.email
+
+    def __repr__(self):
+        return '<Email %s>' % self.name 
+
 
 class Token(db.Model):
     id = db.Column(db.Integer, primary_key=True)
