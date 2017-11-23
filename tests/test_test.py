@@ -1,11 +1,13 @@
 # This Works With `python -m unittest discover`
 
 import unittest
-from app import app, db
+from packjoy import create_app
+from packjoy.common.models import db
 
 
 class MyTest(unittest.TestCase):
 	def setUp(self):
+		app = create_app(config_filename='config_test.py')
 		app.config.from_object('packjoy.config.Testing')
 		self.app = app.test_client()
 		db.create_all()
