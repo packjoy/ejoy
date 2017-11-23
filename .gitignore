@@ -1,2 +1,3 @@
 config_secret_dev.py
 migrations/
+*pyc
