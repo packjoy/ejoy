@@ -1,11 +1,10 @@
-from flask import redirect, url_for, request
+from flask import redirect, url_for, request, current_app
 import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_security import current_user
 from flask_admin import expose
 
-from packjoy import app, db
-from packjoy.common.models import Email, User, Role
+from packjoy.common.models import Email, User, Role, db
 
 
 

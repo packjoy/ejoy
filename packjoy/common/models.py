@@ -1,8 +1,11 @@
 import uuid 
-from packjoy import db, pp
+from packjoy import pp
 from flask import url_for
 from flask_security import UserMixin, RoleMixin
 
+
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
 # This needs to be moved somewhere else
 class Email(db.Model):
@@ -90,3 +93,10 @@ class Brand(object):
 
     def __repr__(self):
         return '<{} Brand>'.format(self.title)
+
+
+
+
+from flask_security import Security, SQLAlchemyUserDatastore
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security()
