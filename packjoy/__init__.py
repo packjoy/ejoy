@@ -18,12 +18,8 @@ def create_app(config_filename):
 	if not app.debug:
 		app.logger.addHandler(file_handler)
 
-	'''
-	MOVE SOMEWHERE ELSE
-	Custom templating helper/filter
-	it renders the file as plain text
-	'''
-	
+	from packjoy.admin.admin import admin
+	admin.init_app(app)
 
 	migrate.init_app(app, db)
 
@@ -33,6 +29,10 @@ def create_app(config_filename):
 	from packjoy.mail import mail
 	mail.init_app(app)
 	
+	'''
+	Custom templating helper/filter
+	it renders the file as plain text
+	'''
 	with app.app_context():
 		from packjoy.common.helpers.utils import get_resource_as_string
 		app.jinja_env.globals['get_resource_as_string'] = get_resource_as_string

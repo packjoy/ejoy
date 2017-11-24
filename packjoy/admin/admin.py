@@ -26,7 +26,7 @@ class MyModelView(sqla.ModelView):
         return redirect(url_for('security.login', next=request.url))
 
  
-admin = admin.Admin(app, name='ejoy', template_mode='bootstrap3', index_view=MyAdminIndexView())
+admin = admin.Admin(name='ejoy', template_mode='bootstrap3', index_view=MyAdminIndexView())
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Email, db.session))
