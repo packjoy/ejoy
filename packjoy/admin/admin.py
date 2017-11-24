@@ -28,6 +28,7 @@ class MyModelView(sqla.ModelView):
 class UserView(MyModelView):
     column_auto_select_related = True
     inline_models = (Email,)
+    column_list = ('name', 'email', 'emails', 'active')
 
 
 admin = admin.Admin(app, name='ejoy', template_mode='bootstrap3', index_view=MyAdminIndexView())

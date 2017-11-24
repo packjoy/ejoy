@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     tokens = db.relationship('Token', backref='user',lazy='joined')
 
     def __repr__(self):
-        return '<User %s - %s>' % (self.email, self.roles)
+        return '<User %s - %s>' % (self.emails[0], self.roles)
 
 
 # Roles a user can have
@@ -43,14 +43,14 @@ class Role(db.Model, RoleMixin):
         return hash(self.name)
 
     def __repr__(self):
-        return '<Role %s>' % self.name 
+        return self.name 
 
 
 
 # This needs to be moved somewhere else
 class Email(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=False, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     active = db.Column(db.Boolean(), default=True)
 
@@ -58,7 +58,7 @@ class Email(db.Model):
         return self.email
 
     def __repr__(self):
-        return '<Email %s>' % self.name 
+        return self.email 
 
 
 class Token(db.Model):
