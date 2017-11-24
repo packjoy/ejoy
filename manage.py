@@ -3,10 +3,11 @@ from flask_script import Manager, Server, Shell, Command, Option
 from packjoy import create_app
 from packjoy.common import models
 from packjoy.common.models import *
+import os
 
-try:
+if not os.environ['IS_PRODUCTION']:
 	app = create_app(config_filename='../config_dev.py')
-except:
+else:
 	app = create_app(config_filename='../config_prod.py')
 
 manager = Manager(app)
