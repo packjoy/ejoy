@@ -1,3 +1,5 @@
 config_secret_dev.py
 migrations/
-*pyc
+*.pyc
+*.pyo
+__pycache__/
