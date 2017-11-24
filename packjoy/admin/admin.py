@@ -17,16 +17,19 @@ class MyAdminIndexView(admin.AdminIndexView):
 
 class MyModelView(sqla.ModelView):
     def is_accessible(self):
-        print(current_user.has_role('Admin'))
-        print(current_user.is_authenticated)
         return current_user.has_role('Admin')
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         return redirect(url_for('security.login', next=request.url))
 
+class UserView(MyModelView):
+    column_auto_select_related = True
+    inline_models = (Email,)
+    column_list = ('name', 'email', 'emails', 'active')
  
+
 admin = admin.Admin(name='ejoy', template_mode='bootstrap3', index_view=MyAdminIndexView())
-admin.add_view(MyModelView(User, db.session))
+admin.add_view(UserView(User, db.session))
 admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Email, db.session))

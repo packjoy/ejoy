@@ -51,4 +51,3 @@ def register_blueprints(app):
 	app.register_blueprint(site)
 	app.register_blueprint(mail_service, url_prefix='/mail')
 	app.register_blueprint(common)
-

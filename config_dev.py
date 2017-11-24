@@ -1,7 +1,11 @@
 from config import *
 from config_secret_dev import *
+import os
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+base = os.path.abspath('.')
+
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(base, 'test.db'))
 SECRET_KEY = 'secret'
 DEBUG = True
 
