@@ -4,7 +4,11 @@ from packjoy import create_app
 from packjoy.common import models
 from packjoy.common.models import *
 
-app = create_app(config_filename='../config_dev.py')
+try:
+	app = create_app(config_filename='../config_dev.py')
+except:
+	app = create_app(config_filename='../config_prod.py')
+
 manager = Manager(app)
 
 
