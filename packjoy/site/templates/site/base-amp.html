@@ -35,29 +35,18 @@
   <body>
     <amp-analytics type="googleanalytics">
         <script type="application/json">
-        {
-            "vars": {
-              "account": "UA-110188549-1"
-            },
-            "triggers": {
-              "trackPageview": {
-                "on": "visible",
-                "request": "pageview",
+            {
                 "vars": {
-                    "title": {{ page['title'] }}
+                    "account": "UA-110188549-1"
+                },
+                "triggers": {
+                    "trackPageview": {
+                        "on": "visible",
+                        "request": "pageview"
+                    }
                 }
-              },
-              "trackEvent": {
-                "selector": "#event-test",
-                "on": "click",
-                "request": "event",
-                "vars": {
-                  "eventCategory": "ui-components",
-                  "eventAction": "click"
-                }
-              }
             }
-        }
+
         </script>
     </amp-analytics>
 
