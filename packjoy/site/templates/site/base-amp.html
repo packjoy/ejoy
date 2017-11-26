@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <script src="https://cdn.ampproject.org/v0.js" async></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
     {% block add_scripts %}
@@ -32,6 +33,34 @@
     </style>
   </head>
   <body>
+    <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+            "vars": {
+              "account": "UA-110188549-1"
+            },
+            "triggers": {
+              "trackPageview": {
+                "on": "visible",
+                "request": "pageview"
+                "vars": {
+                    "title": {{ page['title'] }}
+                }
+              },
+              "trackEvent": {
+                "selector": "#event-test",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                  "eventCategory": "ui-components",
+                  "eventAction": "click"
+                }
+              }
+            }
+        }
+        </script>
+    </amp-analytics>
+
     <div class="wrapper">
         <nav class="w100p navbar" role="navigation">
             <a class="navbar-brand" href="{{ url_for('site.amp_index') }}">
