@@ -14,38 +14,46 @@ site = Blueprint(
 @site.route('/')
 def amp_index():
     products = get_prods_by_slug(slug=None)
-    # print('Email: {}'.format(current_user.email))
-    # print('Is admin: {}'.format(current_user.has_role('Admin')))
-    # print('Roles: {}'.format(current_user.roles))
-    return render_template('site/index-amp.html', products=products)
+    page = dict()
+    page["title"] = 'Homepage'
+    return render_template('site/index-amp.html', products=products, page=page)
 
 @site.route('/products')
 def products():
     products = get_prods_by_slug(slug=None)
-    return render_template('site/products-page-amp.html', products=products)
+    page = dict()
+    page["title"] = 'Product'
+    return render_template('site/products-page-amp.html', products=products, page=page)
 
 @site.route('/contact-us')
 def contact_us():
     products = get_prods_by_slug(slug=None)
-    return render_template('site/contact-us-page-amp.html')
+    page = dict()
+    page["title"] = 'Contact Us'
+    return render_template('site/contact-us-page-amp.html', page=page)
 
 @site.route('/checkout')
 def checkout():
     products = get_prods_by_slug(slug=None)
-    return render_template('site/checkout-page-amp.html')
+    page = dict()
+    page["title"] = 'Checkout'
+    return render_template('site/checkout-page-amp.html', page=page)
 
 @site.route('/<brand>')
 def amp_brand_page(brand):
     brand = get_brand_by_slug(brand)
+    page = dict
+    page["title"] = brand.title
     if brand is None:
         # There is No Such a Brand
         # Abort 404
         return redirect(url_for('site.amp_index'))
-    return render_template('site/brand-page-amp.html', brand=brand)
+    return render_template('site/brand-page-amp.html', brand=brand, page=page)
 
 @site.route('/<brand>/<product>')
 def amp_product_page(brand, product):
     prod = get_prods_by_slug(product)
+    page = dict()
     if prod is None:
         # There is no such a prduct
         # raise a 404 Error
@@ -54,4 +62,4 @@ def amp_product_page(brand, product):
     brand_obj = get_brand_by_slug(brand)
     if brand_slug != brand:
         return redirect(url_for('amp_product_page', brand=prod.brand['slug'], product=prod.slug))
-    return render_template('site/product-page-amp.html', product=prod, brand=brand_obj)
+    return render_template('site/product-page-amp.html', product=prod, brand=brand_obj, page=page)
