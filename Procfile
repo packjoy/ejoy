@@ -1,1 +1,1 @@
-web: gunicorn packjoy:app
+web: gunicorn run:app

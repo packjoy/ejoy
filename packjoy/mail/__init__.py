@@ -1,8 +1,7 @@
-from packjoy import app
 from flask_mail import Mail, Message
 from flask import Blueprint
 
-mail = Mail(app)
+mail = Mail()
 mail_service = Blueprint('mail_service', __name__, template_folder='templates')
 
 @mail_service.route('/test')

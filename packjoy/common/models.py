@@ -1,12 +1,16 @@
 import uuid 
-from packjoy import db, pp
+from packjoy import pp
 from flask import url_for
 from flask_security import UserMixin, RoleMixin
 
 
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
 
 # User Model, with User Attributes
 class User(db.Model, UserMixin):
@@ -117,3 +121,8 @@ class Brand(object):
 
     def __repr__(self):
         return '<{} Brand>'.format(self.title)
+
+
+from flask_security import Security, SQLAlchemyUserDatastore
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security()

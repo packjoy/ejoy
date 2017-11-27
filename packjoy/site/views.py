@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, request, render_template
 from flask import abort, redirect, url_for
-from packjoy import db, pp
-from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
 from flask_security import current_user
+from packjoy import pp
+from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
+from packjoy.common.models import db
+
 
 site = Blueprint(
 			'site', __name__,

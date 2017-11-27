@@ -1,11 +1,10 @@
-from flask import redirect, url_for, request
+from flask import redirect, url_for, request, current_app
 import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_security import current_user
 from flask_admin import expose
 
-from packjoy import app, db
-from packjoy.common.models import Email, User, Role
+from packjoy.common.models import Email, User, Role, db
 
 
 
@@ -24,14 +23,13 @@ class MyModelView(sqla.ModelView):
         # redirect to login page if user doesn't have access
         return redirect(url_for('security.login', next=request.url))
 
- 
 class UserView(MyModelView):
     column_auto_select_related = True
     inline_models = (Email,)
     column_list = ('name', 'email', 'emails', 'active')
+ 
 
-
-admin = admin.Admin(app, name='ejoy', template_mode='bootstrap3', index_view=MyAdminIndexView())
+admin = admin.Admin(name='ejoy', template_mode='bootstrap3', index_view=MyAdminIndexView())
 admin.add_view(UserView(User, db.session))
 admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Email, db.session))

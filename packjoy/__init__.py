@@ -1,60 +1,53 @@
 from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
-from moltin.moltin import Moltin
-from flask_migrate import Migrate
 from packjoy.common.logger import file_handler
-from flask_security import Security, SQLAlchemyUserDatastore
+
 import pprint
-
-
-app = Flask(__name__, static_folder=None)
-app.config.from_pyfile('../config_dev.py')
 pp = pprint.PrettyPrinter(indent=2)
-if not app.debug:
-	app.logger.addHandler(file_handler)
 
-# Custom templating helper
-# filters, renderers
-def get_resource_as_string(name, charset='utf-8'):
-    with app.open_resource(name) as f:
-        return f.read().decode(charset)
-
-app.jinja_env.globals['get_resource_as_string'] = get_resource_as_string
-
-# Moove somewhere else
-m = Moltin(app.config['MOLTIN_CLIENT_ID'], app.config['MOLTIN_CLIENT_SECRET'])
-access_token = m.authenticate()
-
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+from flask_migrate import Migrate
+migrate = Migrate()
 
 
-@app.after_request
-def apply_cors_to_amp_cache(response):
-    response.headers["Access-Control-Allow-Origin"] = '*.ampproject.org'
-    response.headers["Access-Control-Allow-Origin"] = '*.amp.cloudflare.com'
-    source_origin = request.args.get('__amp_source_origin', '')
-    if source_origin:
-        response.headers["AMP-Access-Control-Allow-Source-Origin"] = source_origin
-    response.headers["Access-Control-Expose-Headers"] = 'Access-Control-Expose-Headers'
-    return response
+def create_app(config_filename):
+	app = Flask(__name__, static_folder=None)
+	app.config.from_pyfile(config_filename)
+	
+	from packjoy.common.models import db
+	db.init_app(app)
 
+	if not app.debug:
+		app.logger.addHandler(file_handler)
 
-from packjoy.api.routes import api
-from packjoy.site.views import site
-from packjoy.mail import mail_service
-from packjoy.common import common
-from packjoy.common.models import User, Role
+	from packjoy.admin.admin import admin
+	admin.init_app(app)
 
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore)
-# Importing admin stuff`@@@@"""""""
+	migrate.init_app(app, db)
 
-# define a context processor for merging flask-admin's template context into the
-# flask-security views.
-import packjoy.admin.admin
+	from packjoy.common.models import user_datastore, security
+	security.init_app(app, datastore=user_datastore)
 
-app.register_blueprint(api, url_prefix='/api')
-app.register_blueprint(site)
-app.register_blueprint(common)
-app.register_blueprint(mail_service, url_prefix='/mail')
+	from packjoy.mail import mail
+	mail.init_app(app)
+	
+	'''
+	Custom templating helper/filter
+	it renders the file as plain text
+	'''
+	with app.app_context():
+		from packjoy.common.helpers.utils import get_resource_as_string
+		app.jinja_env.globals['get_resource_as_string'] = get_resource_as_string
+		register_blueprints(app)
+
+	return app
+	
+
+def register_blueprints(app):
+	from packjoy.api.routes import api
+	from packjoy.site.views import site
+	from packjoy.mail import mail_service
+	from packjoy.common import common
+
+	app.register_blueprint(api, url_prefix='/api')
+	app.register_blueprint(site)
+	app.register_blueprint(mail_service, url_prefix='/mail')
+	app.register_blueprint(common)

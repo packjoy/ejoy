@@ -25,3 +25,14 @@ def send_token_to_user(email=None, token=None):
             print("Error happened: {}".format(str(e)))
             return str(e)
     return False;
+
+
+'''
+This functin will send an email
+to the provided email address
+The Campaign will provide additional
+datas: template, products
+'''
+def send_email(email_address, campaign):
+    products = None # We need get the products based on the campaign type
+    pass
