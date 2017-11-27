@@ -107,10 +107,10 @@ def scrape_other_sites():
 # 				yield obj
 
 
-def scrape_google_search_results():
+def scrape_google_search_results(filename='google_results.json'):
 	import json
 	import pprint as pp
-	with open('google_results.json', 'r') as f:
+	with open(filename, 'r') as f:
 		data = json.load(f)
 		for query in data:
 			for result in query['results']:
@@ -129,7 +129,8 @@ def scrape_google_search_results():
 						except:
 							print('Error')
 							continue
-				print('Skip this, already in the db')
+				else: 
+					print('Skip this, already in the db')
 
 if __name__ == "__main__":
-	scrape_google_search_results()
+	scrape_google_search_results(filename='google_results_v2.json')

@@ -5,7 +5,7 @@ import os
 base = os.path.abspath('.')
 
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(base, 'test.db'))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(os.path.join(base, 'packjoy', 'test.db'))
 SECRET_KEY = 'secret'
 DEBUG = True
 

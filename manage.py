@@ -5,7 +5,7 @@ from packjoy.common import models
 from packjoy.common.models import *
 import os
 
-if not os.environ['IS_PRODUCTION']:
+if not os.environ.get('IS_PRODUCTION'):
 	app = create_app(config_filename='../config_dev.py')
 else:
 	app = create_app(config_filename='../config_prod.py')

@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     tokens = db.relationship('Token', backref='user',lazy='joined')
 
     def __repr__(self):
-        return '<User %s - %s>' % (self.emails[0], self.roles)
+        return 'User: {}'.format(self.emails[0])
 
 
 # Roles a user can have
