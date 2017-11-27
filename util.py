@@ -1,6 +1,8 @@
 from packjoy.common.models import *
 from packjoy import db
 
+
+
 def remove_invalid_customer_b_users():
 	'''
 	This is used to remove
@@ -8,7 +10,7 @@ def remove_invalid_customer_b_users():
 	with missing email addresses
 	'''
 	for user in User.query.all():
-		if user.has_role('customer_b')
+		if user.has_role('customer_b'):
 			if not user.emails:
 				db.session.delete(user)
 				db.session.commit()
@@ -42,5 +44,13 @@ def create_super_user():
 	db.session.commit()
 
 
+def update_postgress_with_cutomer_b():
+	for user in User.query.all():
+		print(user)
+
+
+
+
+
 if __name__ == '__main__':
-	remove_invalid_users()
+	update_postgress_with_cutomer_b()
