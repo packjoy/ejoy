@@ -12,5 +12,36 @@
 {% block content %}
 <div class="w100p">
 	<h1>Checkout Page</h1>
+	<form method="post"
+	action-xhr="/api/contact-us"
+	target="_top">
+	<div>
+		<input type="text"
+		name="name"
+		placeholder="Name..."
+		required>
+		<input type="email"
+		name="email"
+		placeholder="Email..."
+		required>
+		<input type="text-area"
+		name="email"
+		placeholder="Your message..."
+		required>
+	</div>
+	<input type="submit"
+	value="Contact Us"
+	<div submit-success>
+		<template type="amp-mustache">
+			Thank you for your message!
+		</template>
+	</div>
+	<div submit-error>
+		<template type="amp-mustache">
+			Some error happened. Please leave a message at <b>ejoy.main@gmail.com</b>
+		</template>
+	</div>
+</form>
+
 </div>
 {% endblock content %}

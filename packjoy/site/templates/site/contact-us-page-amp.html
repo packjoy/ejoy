@@ -11,6 +11,38 @@
 
 {% block content %}
 <div class="w100p">
-	<h3>Contact Us Page!</h3>
+	<h3>This is the Contact Us Page!</h3>
+	<form method="post"
+	action-xhr="/api/contact-us"
+	target="_top"
+	custom-validation-reporting="show-all-on-submit">
+		<div>
+			<input type="text"
+			name="name"
+			placeholder="Name..."
+			required>
+			<input type="email"
+			name="email"
+			placeholder="Email..."
+			required>
+			<textarea type="text-area"
+			name="message"
+			placeholder="Your message..."
+			required></textarea>
+
+		</div>
+		<input type="submit"
+		value="Contact Us" />
+		<div submit-success>
+			<template type="amp-mustache">
+				Thank you for your message! {% raw %}{{ message }}{% endraw %}
+			</template>
+		</div>
+		<div submit-error>
+			<template type="amp-mustache">
+				Some error happened. Please leave a message at <b>ejoy.main@gmail.com</b>
+			</template>
+		</div>
+	</form>
 </div>
 {% endblock content %}

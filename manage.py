@@ -1,9 +1,10 @@
 from flask_migrate import MigrateCommand
-from flask_script import Manager, Server, Shell, Command, Option
+from flask_script import Manager, Server, Shell, Command, Option, prompt_bool
 from packjoy import create_app
 from packjoy.common import models
 from packjoy.common.models import *
 import os
+from packjoy.mail.newsletter import Newsletter
 
 if not os.environ.get('IS_PRODUCTION'):
 	app = create_app(config_filename='../config_dev.py')
@@ -35,10 +36,28 @@ class SendEmail(Command):
 	This is the CLI tool to send
 	different emails (based on campaign)
 	to the provided email address
-	'''		
+	'''
 
-	def run(self, email, campaign_type):
-		pass
+	option_list = (
+		Option('-e', '--email', dest='email', required=False),
+		Option('-c', '--campaigntype', dest='campaigntype', required=True)
+	)
+
+	def run(self, email=None, campaigntype=None):
+		print('Initializing a Newsletter with the following data:')
+		# Create a method for collect filter inputs
+		filters = ['send_to_every_user']
+		newsletter = Newsletter(filters=filters, campaign_type=campaigntype)
+		print('With the following filters:')
+		for custom_filter in filters:
+			print('> {} '.format(custom_filter))
+		print('The email Campaign is: {}'.format(newsletter.campaign))
+
+		if email is not None: # Sending test email
+			newsletter.send_test_email(email=email)
+
+		
+
 
 
 
@@ -87,6 +106,7 @@ manager.add_command('db', MigrateCommand)
 manager.add_command('runserver', Server())
 manager.add_command('shell', Shell(make_context=make_context))
 manager.add_command('createsuperuser', CreateSuperUser())
+manager.add_command('sendemail', SendEmail())
 
 if __name__ == '__main__':
     manager.run()
