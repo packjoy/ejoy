@@ -44,12 +44,15 @@ def checkout():
 @site.route('/<brand>')
 def amp_brand_page(brand):
     brand = get_brand_by_slug(brand)
-    page = dict
-    page["title"] = brand.title
+    page = dict()
+    # For some reason this doesn't work
+    # It redirects twice to the site
     if brand is None:
         # There is No Such a Brand
         # Abort 404
         return redirect(url_for('site.amp_index'))
+    print(dir(brand))
+    page["title"] = brand.title
     return render_template('site/brand-page-amp.html', brand=brand, page=page)
 
 @site.route('/<brand>/<product>')

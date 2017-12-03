@@ -10,7 +10,17 @@
 </style>
 
 {% block content %}
-<div class="w100p">
-	<h3>{{ products }}</h3>
+<div class="w100p brand-page-content">
+	<img class="w100p brand-banner" src="{{ brand.banner }}" width="600" border="0" alt="{{ brand.title }}" />
+	<h3 class="banner-title">{{ brand.title }} - products </h3>
+	<hr />
+	<div class="prod-renderer-wrapper">
+		{% for product in brand.products %}
+			{% set hide_cta = True %}
+			{% set hide_stock = True %}
+			{% set hide_desc = True %}
+			{% include 'site/partials/prod_renderer_4_in_row.html' %}
+		{% endfor %}
+	</div>
 </div>
 {% endblock content %}

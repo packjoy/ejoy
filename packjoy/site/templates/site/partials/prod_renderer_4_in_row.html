@@ -5,11 +5,24 @@
 		</amp-img>
 	</a>
 	<div class="prod-attr">
-		<h3><span>{{ product.title }}</span><i title="anyad">{{ product.get_stock_status() }}</i></h3>
-		<p>{{ product.description }}</p>
+		<h3>
+			<span>
+				<a href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">
+					{{ product.title }}
+				</a>
+			</span>
+			{% if not hide_stock %}
+				<i title="anyad">{{ product.get_stock_status() }}</i>
+			{% endif %}
+		</h3>
+		{% if not hide_desc %}
+			<p>{{ product.description }}</p>
+		{% endif %}
+		{% if not hide_cta %}
 		<div class="cta-wrapper">
 			<a class="btn btn-submit" href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">Buy Now</a>
 			<a class="btn btn-positive btn-right" href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">View&nbsp;Details</a>
 		</div>
+		{% endif %}
 	</div>
 </div>
