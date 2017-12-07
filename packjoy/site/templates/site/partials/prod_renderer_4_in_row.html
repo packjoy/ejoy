@@ -20,8 +20,8 @@
 		{% endif %}
 		{% if not hide_cta %}
 		<div class="cta-wrapper">
-			<a class="btn btn-submit" href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">Buy Now</a>
-			<a class="btn btn-positive btn-right" href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">View&nbsp;Details</a>
+			<a class="btn btn-transation btn-submit" href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">Buy Now</a>
+			<a class="btn btn-transation btn-positive btn-right" href="{{ url_for('site.amp_product_page', brand=product['brand']['slug'], product=product['slug']) }}">View&nbsp;Details</a>
 		</div>
 		{% endif %}
 	</div>

@@ -84,11 +84,17 @@
 					display: block;
 				}
 			}
+			.btn {
+				-webkit-transition: all 0.5s;
+				-moz-transition: all 0.5s;
+				transition: all 0.5s;
+			}
 			.btn-submit {
 				background-color: $blue-color;
 				&:hover {
-					background-color: $blue-color-hover;
-					color: #cccccc;
+					background-color: #ffffff;
+					color: $blue-color;
+					text-decoration: underline;
 				}
 			}
 			.btn-positive {

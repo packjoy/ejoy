@@ -129,6 +129,11 @@ nav {
                 display: block;
             }
         }
+        .menu-item a {
+            &:hover {
+                color: #444242;
+            }
+        }
         .menu-item1 {
             grid-column: 1;
             grid-row: 1;
