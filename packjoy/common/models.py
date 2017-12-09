@@ -77,7 +77,7 @@ class Token(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return '<Subscriber %r>' % self.email
+        return '<User id %r>' % self.user_id
 
 
 class Product(object):
