@@ -22,10 +22,10 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True)
     city = db.Column(db.String(300), nullable=True)
     name = db.Column(db.String(124), unique=False, nullable=True)
-    emails = db.relationship('Email', backref='user', lazy='joined')
+    emails = db.relationship('Email', cascade='all, delete-orphan', backref='user', lazy='joined')
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
-    tokens = db.relationship('Token', backref='user',lazy='joined')
+    tokens = db.relationship('Token', cascade='all, delete-orphan', backref='user',lazy='joined')
 
     def __repr__(self):
         return 'User: {}'.format(self.emails[0])
