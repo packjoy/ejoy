@@ -50,6 +50,11 @@ def remove_invalid_customer_b_users():
 					db.session.delete(user)
 					db.session.commit()
 					print('User {} has been deleted'.format(user.name))
+		for email in Email.query.all():
+			if email.user is None:
+				db.session.delete(email)
+				db.session.commit()
+				print('{} has no user'.format(email))
 
 
 
@@ -59,4 +64,4 @@ def update_postgress_with_cutomer_b():
 		save_to_prod_db(users)
 
 if __name__ == '__main__':
-	update_postgress_with_cutomer_b()
+	remove_invalid_customer_b_users()
