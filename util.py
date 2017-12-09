@@ -63,4 +63,4 @@ def update_postgress_with_cutomer_b():
 		save_to_prod_db(users)
 
 if __name__ == '__main__':
-	remove_invalid_customer_b_userssz
+	remove_invalid_customer_b_users()
