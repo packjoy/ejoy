@@ -3,7 +3,7 @@ from packjoy import create_app
 from packjoy.common.models import db
 
 
-app = create_app('../config_dev.py')
+app = create_app('../config_prod.py')
 
 
 def save_to_prod_db(users=None):
@@ -17,7 +17,6 @@ def save_to_prod_db(users=None):
 		customer_b = Role.query.filter_by(name='customer_b').first()
 		print(customer_b)
 		for u in users:
-			print(db)
 			# if User.query.filter_by(email=u.email).count() > 0:
 			# 	print('This is already in the database')
 			# 	continue
@@ -64,4 +63,4 @@ def update_postgress_with_cutomer_b():
 		save_to_prod_db(users)
 
 if __name__ == '__main__':
-	remove_invalid_customer_b_users()
+	remove_invalid_customer_b_userssz
