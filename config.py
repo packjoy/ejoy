@@ -12,3 +12,10 @@ MAIL_USE_SSL = True
 MAIL_USERNAME = 'ejoy.noreply@gmail.com'
 MAIL_PASSWORD = 'noreply-email-password'
 # MAIL_DEFAULT_SENDER = None
+
+# ADMIN STUFF
+ADMIN_ADDRESSES = ['ejoy.main@gmail.com', 'szeka1994@gmail.com', 
+				'dragosimbrea@yahoo.it', 'konatkalman@gmail.com']
+
+
+mail_kalman = 'kkonat96@gmail.com'

@@ -1,12 +1,7 @@
-from flask import render_template
+from flask import render_template, current_app
 from flask_mail import Message
 from packjoy.mail import mail
 from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
-
-mail_kalman = 'kkonat96@gmail.com'
-mail_dragos = 'dragosimbrea@yahoo.com'
-mail_szeka = 'szeka1994@gmail.com'
-mail_ejoy = 'ejoy.main@gmail.com'
 
 
 def send_token_to_user(email=None, token=None):
@@ -18,7 +13,7 @@ def send_token_to_user(email=None, token=None):
         try:
             msg = Message("10 percent discount on your next purchase!",
                 sender="ejoy.main@gmail.com",
-                recipients=[email])
+                recipients=[email].extend(current_app.config['ADMIN_ADDRESSES']))
             msg.body = "testing"
             msg.html = render_template('mail/token.html',
                                     email=email,
@@ -38,7 +33,7 @@ def send_contact_form_message(email=None, name=None, message=None):
         try:
             msg = Message("Uj uzenet: Contact form",
                 sender=email,
-                recipients=[mail_ejoy, mail_kalman, mail_szeka, mail_dragos])
+                recipients=current_app.config['ADMIN_ADDRESSES'])
             msg.html = "<b>Uzenet</b>: {} <br /><br /><b>From {} : {}</b>".format(message, name, email)
             mail.send(msg)
             return True;

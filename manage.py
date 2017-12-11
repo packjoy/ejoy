@@ -48,10 +48,7 @@ class SendEmail(Command):
 		# Create a method for collect filter inputs
 		filters = ['send_to_every_user']
 		newsletter = Newsletter(filters=filters, campaign_type=campaigntype)
-		print('With the following filters:')
-		for custom_filter in filters:
-			print('> {} '.format(custom_filter))
-		print('The email Campaign is: {}'.format(newsletter.campaign))
+		print(len(newsletter.users))
 
 		if email is not None: # Sending test email
 			newsletter.send_test_email(email=email)
