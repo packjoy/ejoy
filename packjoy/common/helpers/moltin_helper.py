@@ -1,11 +1,13 @@
-from flask import current_app
+from flask import current_app, Blueprint
 from packjoy import pp
 from packjoy.common.models import Product, Brand
 from moltin.exception import RequestError
 from moltin.moltin import Moltin
 
 
-# Moove somewhere else
+
+# THIS IS REALLY BAD
+# CHANGE IT AS SOON AS YOU CAN
 m = Moltin(current_app.config['MOLTIN_CLIENT_ID'], current_app.config['MOLTIN_CLIENT_SECRET'])
 access_token = m.authenticate()
 

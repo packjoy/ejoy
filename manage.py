@@ -4,12 +4,14 @@ from packjoy import create_app
 from packjoy.common import models
 from packjoy.common.models import *
 import os
-from packjoy.mail.newsletter import Newsletter
+from flask import current_app
 
 if not os.environ.get('IS_PRODUCTION'):
 	app = create_app(config_filename='../config_dev.py')
 else:
 	app = create_app(config_filename='../config_prod.py')
+
+
 
 manager = Manager(app)
 
@@ -44,14 +46,14 @@ class SendEmail(Command):
 	)
 
 	def run(self, email=None, campaigntype=None):
-		print('Initializing a Newsletter with the following data:')
-		# Create a method for collect filter inputs
-		filters = ['send_to_every_user']
-		newsletter = Newsletter(filters=filters, campaign_type=campaigntype)
-		print(len(newsletter.users))
-
-		if email is not None: # Sending test email
-			newsletter.send_test_email(email=email)
+		with app.app_context():
+			from packjoy.mail.newsletter import Newsletter
+			print('Initializing a Newsletter with the following data:')
+			# Create a method for collect filter inputs
+			filters = ['send_to_every_user']
+			newsletter = Newsletter(filters=filters, campaign_type=campaigntype)
+			if email is not None: # Sending test email
+				newsletter.send_test_email(email=email)
 
 		
 
