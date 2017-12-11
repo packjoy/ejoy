@@ -8,12 +8,13 @@ def send_token_to_user(email=None, token=None):
     if email and token:
         products = get_prods_by_slug(slug=None)
         brand = get_brand_by_slug(brand_slug='packjoy')
-        print('Email {}'.format(email))
-        print('Brand {}'.format(brand.banner))
+        emails = current_app.config['ADMIN_ADDRESSES']
+        emails.append(email)
+        print(emails)
         try:
             msg = Message("10 percent discount on your next purchase!",
                 sender="ejoy.main@gmail.com",
-                recipients=[email].extend(current_app.config['ADMIN_ADDRESSES']))
+                recipients=emails)
             msg.body = "testing"
             msg.html = render_template('mail/token.html',
                                     email=email,

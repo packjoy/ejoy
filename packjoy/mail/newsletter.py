@@ -1,9 +1,10 @@
 from .campaigns import PriceDecrease, BackInStock, Welcome, NewArrivals
+from .recipients import Recipients
 
 
 class Newsletter(object):
 	def __init__(self, filters=[], campaign_type=None):
-		self.users = FilteredUsers
+		self.recipients = Recipients(filters)
 		if campaign_type == 'price_decrease':
 			self.campaign = PriceDecrease()
 		elif campaign_type == 'back_in_stock':
@@ -24,3 +25,9 @@ class Newsletter(object):
 
 	def __repr__(self):
 		return self.campaign
+
+	def __getattr__(self, attr):
+		if attr == 'users': # For users we are returning the `recipients.users` list
+			return self.recipients.users
+		else: 
+			raise AttributeError
