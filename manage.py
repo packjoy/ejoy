@@ -50,7 +50,7 @@ class SendEmail(Command):
 			from packjoy.mail.newsletter import Newsletter
 			print('Initializing a Newsletter with the following data:')
 			# Create a method for collect filter inputs
-			filters = ['send_to_every_user']
+			filters = ['every_user']
 			newsletter = Newsletter(filters=filters, campaign_type=campaigntype)
 			if email is not None: # Sending test email
 				newsletter.send_test_email(email=email)

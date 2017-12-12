@@ -72,7 +72,8 @@ class Token(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __init__(self, description='', user_id=''):
-        self.token_code = uuid.uuid4().hex[:10].upper()
+        self.token_code = 'PACKJOYSTARTER'
+        # self.token_code = uuid.uuid4().hex[:10].upper()
         self.description = description
         self.user_id = user_id
 
@@ -94,8 +95,7 @@ class Product(object):
             'title': data['brand']['data']['title'],
             'slug': data['brand']['data']['slug'],
             'description': data['brand']['data']['description'],
-            'banner': url_for('site.static', _external=True, filename='img/{}_banner.png'
-                                                                .format(data['brand']['data']['title'].lower()))
+            'banner': 'https://packjoy.herokuapp.com/static/img/packjoy_banner.png'
         }
         self.category = [data['category']['data'][cat_id] for cat_id in data['category']['data']]
 
@@ -116,8 +116,8 @@ class Brand(object):
         self.products = products
         self.title = self.products[0].brand['title']
         self.slug = self.products[0].brand['slug']
-        self.description = self.products[0].brand['description']
-        self.banner = url_for('site.static', _external=True, filename='img/{}_banner.png'.format(self.title.lower()))
+        self.description = self.products[0].brand['description'],
+        self.banner = 'https://packjoy.herokuapp.com/static/img/packjoy_banner.png'
 
     def __repr__(self):
         return '<{} Brand>'.format(self.title)

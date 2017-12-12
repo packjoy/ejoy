@@ -4,7 +4,7 @@ from flask_admin.contrib import sqla
 from flask_security import current_user
 from flask_admin import expose
 
-from packjoy.common.models import Email, User, Role, db
+from packjoy.common.models import Email, User, Role, db, Token
 
 
 
@@ -33,3 +33,4 @@ admin = admin.Admin(name='ejoy', template_mode='bootstrap3', index_view=MyAdminI
 admin.add_view(UserView(User, db.session))
 admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Email, db.session))
+admin.add_view(MyModelView(Token, db.session))
