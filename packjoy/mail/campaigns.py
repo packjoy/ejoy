@@ -43,7 +43,7 @@ class BackInStock(Base):
 
 class Welcome(Base):
 	def __init__(self, template_name, token=None):
-		Base.__init__(self, template_name=template_name or 'token')
+		Base.__init__(self, template_name=template_name if template_name is not None else 'token')
 		print(token)
 		self.token = token
 		self.template = self.load_template(template_name=template_name, products=self.products,

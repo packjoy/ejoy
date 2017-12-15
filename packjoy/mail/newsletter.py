@@ -39,15 +39,15 @@ class Newsletter(object):
 			for email in user.emails:
 				send_email_to(email_address=email.email, template=self.campaign.template)
 
-	def create_campaign(self, campaign_type, template_name):
+	def create_campaign(self, campaign_type, template):
 		if campaign_type == 'price_decrease':
-			return PriceDecrease(template_name=template_name)
+			return PriceDecrease(template_name=template)
 		elif campaign_type == 'back_in_stock':
-			return BackInStock(template_name=template_name)
+			return BackInStock(template_name=template)
 		elif campaign_type == 'welcome':
-			return Welcome(token=self.starter_coupon, template_name=template_name)
+			return Welcome(token=self.starter_coupon, template_name=template)
 		elif campaign_type == 'new_arrivals':
-			return NewArrivals(template_name=template_name)
+			return NewArrivals(template_name=template)
 		else:
 			raise NotImplementedError('campaign_type: {} is not implemented yet'.format(campaign_type))
 
