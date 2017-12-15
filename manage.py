@@ -20,11 +20,11 @@ manager = Manager(app)
 @manager.command
 def createroles():
 	'''
-	Creates the roles 
+	Creates the roles
 	for admin and scraped
 	busineiss customers
 	'''
-	roles = [Role(name='Admin', description='Admin Role'), 
+	roles = [Role(name='Admin', description='Admin Role'),
 		Role(name='customer_b', description='Scraped Business Customers')]
 	for role in roles:
 		db.session.add(role)
@@ -42,20 +42,21 @@ class SendEmail(Command):
 
 	option_list = (
 		Option('-e', '--email', dest='email', required=False),
-		Option('-c', '--campaigntype', dest='campaigntype', required=True)
+		Option('-c', '--campaigntype', dest='campaigntype', required=True),
+		Option('-t', '--template', dest='template', required=False)
 	)
 
-	def run(self, email=None, campaigntype=None):
+	def run(self, email=None, campaigntype=None, template=None):
 		with app.app_context():
 			from packjoy.mail.newsletter import Newsletter
 			print('Initializing a Newsletter with the following data:')
 			# Create a method for collect filter inputs
 			filters = ['every_user']
-			newsletter = Newsletter(filters=filters, campaign_type=campaigntype)
+			newsletter = Newsletter(filters=filters, campaign_type=campaigntype, template=template)
 			if email is not None: # Sending test email
 				newsletter.send_test_email(email=email)
 
-		
+
 
 
 
@@ -64,7 +65,7 @@ class SendEmail(Command):
 class CreateSuperUser(Command):
 	'''
 	Takes in the email and password
-	and creates a new admin which 
+	and creates a new admin which
 	will have all the roles
 	'''
 	@staticmethod

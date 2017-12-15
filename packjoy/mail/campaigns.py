@@ -17,7 +17,7 @@ class Base:
 	products = get_prods_by_slug(slug=None)
 
 	def __init__(self, template_name=None):
-		self.template = self.load_template(template_name=template_name, 
+		self.template = self.load_template(template_name=template_name,
 				products=self.products, brand=self.brand)
 
 	def load_template(self, template_name, *args, **kwargs):
@@ -42,8 +42,8 @@ class BackInStock(Base):
 
 
 class Welcome(Base):
-	def __init__(self, template_name='token', token=None):
-		Base.__init__(self, template_name=template_name)
+	def __init__(self, template_name, token=None):
+		Base.__init__(self, template_name=template_name or 'token')
 		print(token)
 		self.token = token
 		self.template = self.load_template(template_name=template_name, products=self.products,
