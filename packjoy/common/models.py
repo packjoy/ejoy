@@ -95,7 +95,7 @@ class Product(object):
             'title': data['brand']['data']['title'],
             'slug': data['brand']['data']['slug'],
             'description': data['brand']['data']['description'],
-            'banner': 'https://packjoy.herokuapp.com/static/img/packjoy_banner.png'
+            'banner': 'https://packjoy.herokuapp.com/static/img/{}_banner.png'.format(str(self.slug))
         }
         self.category = [data['category']['data'][cat_id] for cat_id in data['category']['data']]
 
@@ -117,7 +117,7 @@ class Brand(object):
         self.title = self.products[0].brand['title']
         self.slug = self.products[0].brand['slug']
         self.description = self.products[0].brand['description'],
-        self.banner = 'https://packjoy.herokuapp.com/static/img/packjoy_banner.png'
+        self.banner = 'https://packjoy.herokuapp.com/static/img/{}_banner.png'.format(str(self.slug))
 
     def __repr__(self):
         return '<{} Brand>'.format(self.title)

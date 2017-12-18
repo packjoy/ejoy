@@ -21,6 +21,7 @@ class Base:
 				products=self.products, brand=self.brand)
 
 	def load_template(self, template_name, *args, **kwargs):
+		template_name = template_name if template_name is not None else self.campaign_type
 		return render_template('mail/{}.html'.format(template_name), *args, **kwargs)
 
 	def __repr__(self):
@@ -30,21 +31,23 @@ class Base:
 
 
 class PriceDecrease(Base):
-	def __init__(self, template_name='price_decrease'):
+	campaign_type = 'price_decrease'
+	def __init__(self, template_name=None):
 		Base.__init__(self, template_name=template_name)
 
 
 
 class BackInStock(Base):
-	def __init__(self, template_name='back_in_stock'):
+	campaign_type = 'back_in_stock'
+	def __init__(self, template_name=None):
 		Base.__init__(self, template_name=template_name)
 
 
 
 class Welcome(Base):
-	def __init__(self, template_name, token=None):
-		Base.__init__(self, template_name=template_name if template_name is not None else 'token')
-		print(token)
+	campaign_type = 'token'
+	def __init__(self, template_name=None, token=None):
+		Base.__init__(self, template_name)
 		self.token = token
 		self.template = self.load_template(template_name=template_name, products=self.products,
 									brand=self.brand, token=self.token.token_code)
@@ -52,6 +55,7 @@ class Welcome(Base):
 
 
 class NewArrivals(Base):
-	def __init__(self, template_name='new_arrivals'):
+	campaign_type = 'new_arrivals'
+	def __init__(self, template_name=None):
 		Base.__init__(self, template_name=template_name)
 
