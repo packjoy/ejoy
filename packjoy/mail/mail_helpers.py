@@ -2,6 +2,7 @@ from flask import render_template, current_app
 from flask_mail import Message
 from packjoy.mail import mail
 from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
+import requests
 
 
 
@@ -66,3 +67,11 @@ def send_email_to(email_address=None, subject_line='TEST', template='<h1>DEFAULT
 
 
 
+def send_simple_message(email_address=None, subject_line='TEST', template='<h1>DEFAULT TESTING ONLY</h1>'):
+    return requests.post(
+        current_app.config['MAILGUN_API_BASE'],
+        auth=("api", current_app.config['MAILGUN_API_KEY']),
+        data={"from": "Excited User <mailgun@{}>".format(current_app.config['MAILGUN_API_KEY']),
+              "to": ["ejoy.main@gmail.com"],
+              "subject": "Hello",
+              "text": "Testing some Mailgun awesomness!"})
