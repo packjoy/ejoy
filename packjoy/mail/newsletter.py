@@ -1,5 +1,5 @@
 # Module based imports
-from packjoy.mail.mail_helpers import send_email_to
+from packjoy.mail.mail_helpers import send_email_to, send_simple_message
 from packjoy.common.models import Token
 
 # Relative imports
@@ -32,12 +32,12 @@ class Newsletter(object):
 
 	def send_test_email(self, email):
 		print('Sending test email to: {}'.format(email))
-		send_email_to(email_address=email, template=self.campaign.template)
+		send_simple_message(email_address=[email], template=self.campaign.template)
 
 	def send_emails(self):
 		for user in self.users:
 			for email in user.emails:
-				send_email_to(email_address=email.email, template=self.campaign.template)
+				send_simple_message(email_address=email.email, template=self.campaign.template)
 
 	def create_campaign(self, campaign_type, template):
 		if campaign_type == 'price_decrease':

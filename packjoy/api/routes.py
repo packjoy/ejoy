@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from packjoy.common.models import db, Email, Role, Token, User
 from packjoy.common.forms import EmailForm, ContactForm
 from packjoy.common.helpers.moltin_helper import get_prods_by_slug, get_brand_by_slug
-from packjoy.mail.mail_helpers import send_token_to_user, send_contact_form_message
+from packjoy.mail.mail_helpers import send_contact_form_message
 
 from packjoy.mail.newsletter import Newsletter 
 

@@ -67,11 +67,14 @@ def send_email_to(email_address=None, subject_line='TEST', template='<h1>DEFAULT
 
 
 
-def send_simple_message(email_address=None, subject_line='TEST', template='<h1>DEFAULT TESTING ONLY</h1>'):
+def send_simple_message(email_address=[], subject_line='TEST', 
+            template='<h1>DEFAULT TESTING ONLY</h1>', recipient_varables=None):
     return requests.post(
-        current_app.config['MAILGUN_API_BASE'],
+        "{}/messages".format(current_app.config['MAILGUN_API_BASE']),
         auth=("api", current_app.config['MAILGUN_API_KEY']),
-        data={"from": "Excited User <mailgun@{}>".format(current_app.config['MAILGUN_API_KEY']),
-              "to": ["ejoy.main@gmail.com"],
-              "subject": "Hello",
-              "text": "Testing some Mailgun awesomness!"})
+        data={"from": "Ejoy Online Shop <mailgun@{}>".format(current_app.config['MAILGUN_API_DOMAIN']),
+              "to": email_address,
+              "subject": subject_line,
+              "text": 'THIS IS A TEST!',
+              "html": template,
+              "recipient-variables": recipient_varables})
